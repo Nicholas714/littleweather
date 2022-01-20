@@ -8,50 +8,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Weather Scroll View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="littleweather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WeatherScrollViewController" customModule="littleweather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RGR-F3-coO">
-                                <rect key="frame" x="157" y="90" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="YDP-Sz-lS7"/>
-                                    <constraint firstAttribute="height" constant="100" id="trx-Bz-mxw"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7g-bT-Dqa">
-                                <rect key="frame" x="186" y="198" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="sdy-go-0yu">
+                                <rect key="frame" x="149" y="836" width="116" height="26"/>
+                            </pageControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
-                            <constraint firstItem="RGR-F3-coO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="46" id="6nd-6I-4Kx"/>
-                            <constraint firstItem="l7g-bT-Dqa" firstAttribute="top" secondItem="RGR-F3-coO" secondAttribute="bottom" constant="8" symbolic="YES" id="HRY-28-Gpz"/>
-                            <constraint firstItem="l7g-bT-Dqa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NSy-Uk-3Yx"/>
-                            <constraint firstItem="RGR-F3-coO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YL3-XZ-hfA"/>
+                            <constraint firstItem="sdy-go-0yu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="K7A-0D-2aR"/>
+                            <constraint firstItem="sdy-go-0yu" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="fWI-BK-kgy"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainImage" destination="RGR-F3-coO" id="ghh-aS-dZZ"/>
-                        <outlet property="temperature" destination="l7g-bT-Dqa" id="PBx-No-ISh"/>
+                        <outlet property="citiesPageControl" destination="sdy-go-0yu" id="gNd-qh-ozX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="52"/>
+            <point key="canvasLocation" x="18.840579710144929" y="51.5625"/>
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

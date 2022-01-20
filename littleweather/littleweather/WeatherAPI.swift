@@ -13,6 +13,56 @@ struct WeatherErrorResponse: Codable {
     let message: String
 }
 
+/*
+ EXAMPLE WeatherResponse JSON
+ {
+    "coord":{
+       "lon":-84.388,
+       "lat":33.749
+    },
+    "weather":[
+       {
+          "id":500,
+          "main":"Rain",
+          "description":"light rain",
+          "icon":"10d"
+       }
+    ],
+    "base":"stations",
+    "main":{
+       "temp":276.96,
+       "feels_like":274.88,
+       "temp_min":274.91,
+       "temp_max":280.81,
+       "pressure":1020,
+       "humidity":86
+    },
+    "visibility":10000,
+    "wind":{
+       "speed":2.24,
+       "deg":306,
+       "gust":6.26
+    },
+    "rain":{
+       "1h":0.11
+    },
+    "clouds":{
+       "all":100
+    },
+    "dt":1642707863,
+    "sys":{
+       "type":2,
+       "id":2041852,
+       "country":"US",
+       "sunrise":1642682435,
+       "sunset":1642719374
+    },
+    "timezone":-18000,
+    "id":4180439,
+    "name":"Atlanta",
+    "cod":200
+ }
+ */
 struct WeatherResponse: Codable {
     let coord: Coordinate
     let weather: [WeatherDetail]
@@ -30,8 +80,8 @@ struct WeatherResponse: Codable {
 }
 
 struct Coordinate: Codable {
-    let lon: Float
-    let lat: Float
+    let lon: Double
+    let lat: Double
 }
 
 struct WeatherDetail: Codable {
@@ -41,32 +91,17 @@ struct WeatherDetail: Codable {
     let icon: String
 }
 
-struct Landmark: Codable {
-    var name: String
-    var foundingYear: Int
-    var location: Coordinate
-    var vantagePoints: [Coordinate]
-    
-    enum CodingKeys: String, CodingKey {
-        case name = "title"
-        case foundingYear = "founding_date"
-        
-        case location
-        case vantagePoints
-    }
-}
-
 struct TemperatureDetail: Codable {
-    let temp: Float
-    let feels_like: Float
-    let temp_min: Float
-    let temp_max: Float
+    let temp: Double
+    let feels_like: Double
+    let temp_min: Double
+    let temp_max: Double
     let pressure: Int
     let humidity: Int
 }
 
 struct WindDetail: Codable {
-    let speed: Float
+    let speed: Double
     let deg: Int
 }
 
@@ -93,7 +128,6 @@ class WeatherAPI {
         let requestLink = "\(weatherGETPrefix)\(city)&appid=\(appId)"
 
         AF.request(requestLink).responseString { weatherResponseData in
-            print(weatherResponseData.value!)
             if let responseData = weatherResponseData.data {
                 do {
                     let decoder = JSONDecoder()
