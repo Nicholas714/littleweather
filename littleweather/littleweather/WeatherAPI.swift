@@ -148,7 +148,6 @@ class WeatherAPI {
     
     func getWeatherIcon(id icon: String, completion: @escaping (Data?) -> ()) {
         let iconRequest = "\(iconGETPrefix)\(icon)@2x.png"
-        print(iconRequest)
         AF.request(iconRequest).responseString { iconResponseData in
             completion(iconResponseData.data)
         }

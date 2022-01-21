@@ -16,35 +16,51 @@ extension UIColor {
     static let cold3 = UIColor(red: 21/255.0, green: 43/255.0, blue: 80/255.0, alpha: 1.0)
     
     // warm0 = coldest, warm3 = hottest
-    static let warm0 = UIColor(red: 240/255.0, green: 222/255.0, blue: 184/255.0, alpha: 1.0)
+    static let warm0 = UIColor(red: 240/255.0 - 0.1, green: 222/255.0 - 0.1, blue: 184/255.0 - 0.1, alpha: 1.0)
     static let warm1 = UIColor(red: 227/255.0, green: 167/255.0, blue: 117/255.0, alpha: 1.0)
     static let warm2 = UIColor(red: 218/255.0, green: 116/255.0, blue: 71/255.0, alpha: 1.0)
     static let warm3 = UIColor(red: 198/255.0, green: 72/255.0, blue: 50/255.0, alpha: 1.0)
     
-    static func colorFor(temperature: Measurement<UnitTemperature>) -> UIColor {
+    static func colorFor(temperature: Measurement<UnitTemperature>, cloudsPercent: CGFloat) -> UIColor {
         let fahrenheit = temperature.converted(to: .fahrenheit).value
-        
+        let color: UIColor
         switch (fahrenheit) {
         case ..<20:
-            return .cold3
+            color = .cold3
         case 20..<30:
-            return .cold2
+            color = .cold2
         case 30..<40:
-            return .cold1
+            color = .cold1
         case 40..<50:
-            return .cold0
+            color = .cold0
         case 60..<70:
-            return .warm0
+            color = .warm0
         case 70..<80:
-            return .warm1
+            color = .warm1
         case 80..<90:
-            return .warm2
+            color = .warm2
         case 90...:
-            return .warm3
+            color = .warm3
         default:
-            return .warm0
+            color = .warm0
         }
         
+        // modify by how cloudy it is: [0, 100] to [0, 0.1]
+        return color.darken(amount: cloudsPercent / 100 / 10)
     }
     
+    func darken(amount: CGFloat) -> UIColor {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+        
+        getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        return UIColor(red: add(amount: -amount, to: r), green: add(amount: -amount, to: g), blue: add(amount: -amount, to: b), alpha: 1.0)
+    }
+    
+    func add(amount: CGFloat, to current: CGFloat) -> CGFloat {
+        return max(min(1, current + amount), 0)
+    }
 }

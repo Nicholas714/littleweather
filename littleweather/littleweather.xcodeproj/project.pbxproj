@@ -18,6 +18,11 @@
 		439B8A14279A03D400FE6ECB /* UIColor+palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B8A13279A03D400FE6ECB /* UIColor+palette.swift */; };
 		439B8A16279A218700FE6ECB /* CityWeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439B8A15279A218700FE6ECB /* CityWeatherView.xib */; };
 		439B8A18279A225500FE6ECB /* CityWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439B8A17279A225500FE6ECB /* CityWeatherView.swift */; };
+		439B8A1C279A3F2400FE6ECB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439B8A1B279A3F2400FE6ECB /* GoogleService-Info.plist */; };
+		439B8A1F279A408100FE6ECB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 439B8A1E279A408100FE6ECB /* FirebaseAuth */; };
+		439B8A21279A408100FE6ECB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 439B8A20279A408100FE6ECB /* FirebaseDatabase */; };
+		439B8A23279A408100FE6ECB /* FirebaseDatabaseSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 439B8A22279A408100FE6ECB /* FirebaseDatabaseSwift-Beta */; };
+		439B8A25279A4A5100FE6ECB /* CitySearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439B8A24279A4A5100FE6ECB /* CitySearchViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,8 @@
 		439B8A13279A03D400FE6ECB /* UIColor+palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+palette.swift"; sourceTree = "<group>"; };
 		439B8A15279A218700FE6ECB /* CityWeatherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityWeatherView.xib; sourceTree = "<group>"; };
 		439B8A17279A225500FE6ECB /* CityWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherView.swift; sourceTree = "<group>"; };
+		439B8A1B279A3F2400FE6ECB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		439B8A24279A4A5100FE6ECB /* CitySearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CitySearchViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439B8A21279A408100FE6ECB /* FirebaseDatabase in Frameworks */,
 				439B8A122798ECBE00FE6ECB /* Alamofire in Frameworks */,
+				439B8A23279A408100FE6ECB /* FirebaseDatabaseSwift-Beta in Frameworks */,
+				439B8A1F279A408100FE6ECB /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +87,8 @@
 				439B8A13279A03D400FE6ECB /* UIColor+palette.swift */,
 				439B8A15279A218700FE6ECB /* CityWeatherView.xib */,
 				439B8A17279A225500FE6ECB /* CityWeatherView.swift */,
+				439B8A1B279A3F2400FE6ECB /* GoogleService-Info.plist */,
+				439B8A24279A4A5100FE6ECB /* CitySearchViewController.xib */,
 			);
 			path = littleweather;
 			sourceTree = "<group>";
@@ -99,6 +111,9 @@
 			name = littleweather;
 			packageProductDependencies = (
 				439B8A112798ECBE00FE6ECB /* Alamofire */,
+				439B8A1E279A408100FE6ECB /* FirebaseAuth */,
+				439B8A20279A408100FE6ECB /* FirebaseDatabase */,
+				439B8A22279A408100FE6ECB /* FirebaseDatabaseSwift-Beta */,
 			);
 			productName = littleweather;
 			productReference = 4329372A2798E6CB0064541C /* littleweather.app */;
@@ -130,6 +145,7 @@
 			mainGroup = 432937212798E6CB0064541C;
 			packageReferences = (
 				439B8A102798ECBE00FE6ECB /* XCRemoteSwiftPackageReference "Alamofire" */,
+				439B8A1D279A408100FE6ECB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 4329372B2798E6CB0064541C /* Products */;
 			projectDirPath = "";
@@ -146,7 +162,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				439B8A16279A218700FE6ECB /* CityWeatherView.xib in Resources */,
+				439B8A25279A4A5100FE6ECB /* CitySearchViewController.xib in Resources */,
 				4329373A2798E6CC0064541C /* LaunchScreen.storyboard in Resources */,
+				439B8A1C279A3F2400FE6ECB /* GoogleService-Info.plist in Resources */,
 				432937372798E6CC0064541C /* Assets.xcassets in Resources */,
 				432937352798E6CB0064541C /* Main.storyboard in Resources */,
 			);
@@ -394,6 +412,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		439B8A1D279A408100FE6ECB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -401,6 +427,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 439B8A102798ECBE00FE6ECB /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		439B8A1E279A408100FE6ECB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 439B8A1D279A408100FE6ECB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		439B8A20279A408100FE6ECB /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 439B8A1D279A408100FE6ECB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		439B8A22279A408100FE6ECB /* FirebaseDatabaseSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 439B8A1D279A408100FE6ECB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseDatabaseSwift-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
