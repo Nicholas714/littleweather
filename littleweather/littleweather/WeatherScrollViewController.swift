@@ -8,8 +8,13 @@
 import UIKit
 import Firebase
 import CoreLocation
+import os
 
 class WeatherScrollViewController: UIViewController {
+    
+    lazy var logger: Logger = {
+        return Logger(subsystem: Bundle.main.bundleIdentifier ?? "dev.grana.littleweather", category: "application")
+    }()
     
     let lm = CLLocationManager()
     
@@ -68,7 +73,7 @@ class WeatherScrollViewController: UIViewController {
         getWeatherResponse(forCity: city) { response, error in
             if let error = error {
                 completion(nil)
-                print(error)
+                self.logger.error("Failed to get error weather response for \(city): \(error.localizedDescription)")
             } else {
                 cityView.weather = response
                 completion(cityView)
@@ -89,6 +94,13 @@ class WeatherScrollViewController: UIViewController {
     func updateScrollViewCitiesSize() {
         citiesScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(cityViews.count), height: view.frame.height)
         citiesPageControl.numberOfPages = cityViews.count
+        
+        for i in 0..<cityViews.count {
+            // recalcualte all positions
+            let cityView = cityViews[i]
+            let newFrame = CGRect(x: CGFloat(i) * self.citiesScrollView.frame.width, y: 0, width: self.citiesScrollView.frame.width, height: self.citiesScrollView.frame.height)
+            cityView.frame = newFrame
+        }
     }
     
     func setup(with cities: [String]) {
@@ -115,17 +127,6 @@ class WeatherScrollViewController: UIViewController {
             cityViews.remove(at: cityIndex)
             
             self.commitChanges()
-            
-            if cityIndex + 1 >= cityViews.count {
-                return
-            }
-            
-            for i in cityIndex + 1..<cityViews.count {
-                let cityView = cityViews[i]
-                let newFrame = CGRect(x: cityView.frame.minX - citiesScrollView.frame.width, y: 0, width: self.citiesScrollView.frame.width, height: self.citiesScrollView.frame.height)
-                cityView.frame = newFrame
-            }
-            
             self.updateScrollViewCitiesSize()
         }
     }
@@ -152,7 +153,7 @@ class WeatherScrollViewController: UIViewController {
                         self.citiesScrollView.addSubview(cityView)
                         self.cityViews.append(cityView)
                     } else {
-                        self.citiesScrollView.insertSubview(cityView, at: index)
+                        self.citiesScrollView.addSubview(cityView)
                         self.cityViews.insert(cityView, at: index)
                     }
                     self.updateScrollViewCitiesSize()
@@ -182,9 +183,10 @@ class WeatherScrollViewController: UIViewController {
         }
         
         let done = UIAlertAction(title: "Done", style: .default) { action in
-            if let city = inputField.text?.replacingOccurrences(of: " ", with: "%20").trimmingCharacters(in: .whitespacesAndNewlines) {
+            if let city = inputField.text {
                 self.getWeatherResponse(forCity: city) { response, error in
-                    if let _ = error {
+                    if let error = error {
+                        self.logger.error("Failed to get error weather response for \(city): \(error.localizedDescription)")
                         self.presentError(text: "City not found!")
                     } else {
                         if let replacementIndex = replacementIndex {
@@ -214,7 +216,8 @@ class WeatherScrollViewController: UIViewController {
     }
     
     func getWeatherResponse(forCity city: String, completion: @escaping ((WeatherResponse?, Error?) -> ()), imageCompletion: @escaping ((UIImage?) -> ())) {
-        weather.getWeather(for: city) { weatherResponse, error in
+        let urlName = city.replacingOccurrences(of: " ", with: "%20").trimmingCharacters(in: .whitespacesAndNewlines)
+        weather.getWeather(for: urlName) { weatherResponse, error in
             if let weatherResponse = weatherResponse {
                 completion(weatherResponse, nil)
                 
@@ -226,8 +229,10 @@ class WeatherScrollViewController: UIViewController {
                     }
                 }
             } else if let error = error {
-                print(error)
                 completion(nil, error)
+                imageCompletion(nil)
+            } else {
+                completion(nil, nil)
                 imageCompletion(nil)
             }
         }
@@ -246,7 +251,8 @@ extension WeatherScrollViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         citiesPageControl.currentPage = cityIndex
         if cityIndex < citiesScrollView.subviews.count {
-            view.backgroundColor = citiesScrollView.subviews[cityIndex].backgroundColor
+            let currentBackgroundColor = cityViews[cityIndex].backgroundColor
+            view.backgroundColor = currentBackgroundColor
         }
     }
     
@@ -261,11 +267,15 @@ extension WeatherScrollViewController: CLLocationManagerDelegate {
                 if let placemark = placemarks?.first, let city = placemark.locality {
                     self.insert(city: city, at: self.cityIndex + 1)
                 }
+                if let error = error {
+                    self.logger.error("Failed to get placemark \(error.localizedDescription)")
+                }
             }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        logger.error("Failed to placemark \(error.localizedDescription)")
         presentError(text: "Location manager failed. \(error.localizedDescription)")
     }
     
