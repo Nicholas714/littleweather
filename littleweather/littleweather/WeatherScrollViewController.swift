@@ -7,8 +7,11 @@
 
 import UIKit
 import Firebase
+import CoreLocation
 
 class WeatherScrollViewController: UIViewController {
+    
+    let lm = CLLocationManager()
     
     var cityViews = [CityWeatherView]()
     
@@ -28,6 +31,10 @@ class WeatherScrollViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.lm.delegate = self
+        self.lm.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        self.lm.requestWhenInUseAuthorization()
+        
         citiesPageControl.addTarget(self, action: #selector(pageChangedByUser(_:)), for: .valueChanged)
         
         citiesScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
@@ -108,18 +115,54 @@ class WeatherScrollViewController: UIViewController {
             cityViews.remove(at: cityIndex)
             
             self.commitChanges()
-            self.updateScrollViewCitiesSize()
             
-            for i in cityIndex..<cityViews.count {
+            if cityIndex + 1 >= cityViews.count {
+                return
+            }
+            
+            for i in cityIndex + 1..<cityViews.count {
                 let cityView = cityViews[i]
                 let newFrame = CGRect(x: cityView.frame.minX - citiesScrollView.frame.width, y: 0, width: self.citiesScrollView.frame.width, height: self.citiesScrollView.frame.height)
                 cityView.frame = newFrame
             }
+            
+            self.updateScrollViewCitiesSize()
         }
     }
     
     @IBAction func addCity(_ sender: UIButton) {
         enterCityAlert()
+    }
+    
+    func insert(city: String, at index: Int) {
+        var alreadyAddedCityIndex: Int? = nil
+        for (i, cityView) in self.cityViews.enumerated() {
+            if let compName = cityView.cityName, city.caseInsensitiveCompare(compName) == .orderedSame {
+                alreadyAddedCityIndex = i
+            }
+        }
+        
+        if let index = alreadyAddedCityIndex {
+            let newCityPoint = CGPoint(x: CGFloat(index) * self.citiesScrollView.frame.width, y: 0)
+            self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
+        } else {
+            self.create(city: city, at: index) { cityView in
+                if let cityView = cityView {
+                    if self.cityViews.isEmpty {
+                        self.citiesScrollView.addSubview(cityView)
+                        self.cityViews.append(cityView)
+                    } else {
+                        self.citiesScrollView.insertSubview(cityView, at: index)
+                        self.cityViews.insert(cityView, at: index)
+                    }
+                    self.updateScrollViewCitiesSize()
+                    
+                    let newCityPoint = CGPoint(x: CGFloat(index) * self.citiesScrollView.frame.width, y: 0)
+                    self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
+                    self.commitChanges()
+                }
+            }
+        }
     }
     
     func enterCityAlert(replacementIndex: Int? = nil) {
@@ -130,6 +173,12 @@ class WeatherScrollViewController: UIViewController {
         alert.addTextField { field in
             inputField = field
             field.placeholder = "City"
+        }
+        
+        let currentLocation = UIAlertAction(title: "Current Location", style: .default) { action in
+            self.lm.requestWhenInUseAuthorization()
+            self.lm.requestAlwaysAuthorization()
+            self.lm.requestLocation()
         }
         
         let done = UIAlertAction(title: "Done", style: .default) { action in
@@ -143,36 +192,7 @@ class WeatherScrollViewController: UIViewController {
                             self.commitChanges()
                         } else {
                             let newCityIndex = self.cityIndex + 1
-                            
-                            // instead of creating duplicate city, scroll to the already created one
-                            var alreadyAddedCityIndex: Int? = nil
-                            for (i, cityView) in self.cityViews.enumerated() {
-                                if let compName = cityView.cityName, city.caseInsensitiveCompare(compName) == .orderedSame {
-                                    alreadyAddedCityIndex = i
-                                }
-                            }
-                            
-                            if let index = alreadyAddedCityIndex {
-                                let newCityPoint = CGPoint(x: CGFloat(index) * self.citiesScrollView.frame.width, y: 0)
-                                self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
-                            } else {
-                                self.create(city: city, at: newCityIndex) { cityView in
-                                    if let cityView = cityView {
-                                        if self.cityViews.isEmpty {
-                                            self.citiesScrollView.addSubview(cityView)
-                                            self.cityViews.append(cityView)
-                                        } else {
-                                            self.citiesScrollView.insertSubview(cityView, at: newCityIndex)
-                                            self.cityViews.insert(cityView, at: newCityIndex)
-                                        }
-                                        self.updateScrollViewCitiesSize()
-                                        
-                                        let newCityPoint = CGPoint(x: CGFloat(newCityIndex) * self.citiesScrollView.frame.width, y: 0)
-                                        self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
-                                        self.commitChanges()
-                                    }
-                                }
-                            }
+                            self.insert(city: city, at: newCityIndex)
                         }
                     }
                 } imageCompletion: { image in
@@ -187,6 +207,7 @@ class WeatherScrollViewController: UIViewController {
             alert.dismiss(animated: true, completion: nil)
         }
         
+        alert.addAction(currentLocation)
         alert.addAction(done)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
@@ -227,6 +248,25 @@ extension WeatherScrollViewController: UIScrollViewDelegate {
         if cityIndex < citiesScrollView.subviews.count {
             view.backgroundColor = citiesScrollView.subviews[cityIndex].backgroundColor
         }
+    }
+    
+}
+
+extension WeatherScrollViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let currentLocation = locations.first {
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(currentLocation) { placemarks, error in
+                if let placemark = placemarks?.first, let city = placemark.locality {
+                    self.insert(city: city, at: self.cityIndex + 1)
+                }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        presentError(text: "Location manager failed. \(error.localizedDescription)")
     }
     
 }
