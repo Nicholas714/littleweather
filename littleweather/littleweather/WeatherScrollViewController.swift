@@ -103,12 +103,18 @@ class WeatherScrollViewController: UIViewController {
     }
     
     @IBAction func deleteCity(_ sender: UIButton) {
-        if (cityIndex < cityViews.count) {
+        if (cityViews.count > 1) {
             cityViews[cityIndex].removeFromSuperview()
             cityViews.remove(at: cityIndex)
             
             self.commitChanges()
             self.updateScrollViewCitiesSize()
+            
+            for i in cityIndex..<cityViews.count {
+                let cityView = cityViews[i]
+                let newFrame = CGRect(x: cityView.frame.minX - citiesScrollView.frame.width, y: 0, width: self.citiesScrollView.frame.width, height: self.citiesScrollView.frame.height)
+                cityView.frame = newFrame
+            }
         }
     }
     
@@ -127,8 +133,7 @@ class WeatherScrollViewController: UIViewController {
         }
         
         let done = UIAlertAction(title: "Done", style: .default) { action in
-            if let city = inputField.text?.replacingOccurrences(of: " ", with: "%20") {
-                
+            if let city = inputField.text?.replacingOccurrences(of: " ", with: "%20").trimmingCharacters(in: .whitespacesAndNewlines) {
                 self.getWeatherResponse(forCity: city) { response, error in
                     if let _ = error {
                         self.presentError(text: "City not found!")
@@ -138,15 +143,34 @@ class WeatherScrollViewController: UIViewController {
                             self.commitChanges()
                         } else {
                             let newCityIndex = self.cityIndex + 1
-                            self.create(city: city, at: newCityIndex) { cityView in
-                                if let cityView = cityView {
-                                    self.citiesScrollView.insertSubview(cityView, at: newCityIndex)
-                                    self.cityViews.insert(cityView, at: newCityIndex)
-                                    self.updateScrollViewCitiesSize()
-                                    
-                                    let newCityPoint = CGPoint(x: CGFloat(newCityIndex) * self.citiesScrollView.frame.width, y: 0)
-                                    self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
-                                    self.commitChanges()
+                            
+                            // instead of creating duplicate city, scroll to the already created one
+                            var alreadyAddedCityIndex: Int? = nil
+                            for (i, cityView) in self.cityViews.enumerated() {
+                                if let compName = cityView.cityName, city.caseInsensitiveCompare(compName) == .orderedSame {
+                                    alreadyAddedCityIndex = i
+                                }
+                            }
+                            
+                            if let index = alreadyAddedCityIndex {
+                                let newCityPoint = CGPoint(x: CGFloat(index) * self.citiesScrollView.frame.width, y: 0)
+                                self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
+                            } else {
+                                self.create(city: city, at: newCityIndex) { cityView in
+                                    if let cityView = cityView {
+                                        if self.cityViews.isEmpty {
+                                            self.citiesScrollView.addSubview(cityView)
+                                            self.cityViews.append(cityView)
+                                        } else {
+                                            self.citiesScrollView.insertSubview(cityView, at: newCityIndex)
+                                            self.cityViews.insert(cityView, at: newCityIndex)
+                                        }
+                                        self.updateScrollViewCitiesSize()
+                                        
+                                        let newCityPoint = CGPoint(x: CGFloat(newCityIndex) * self.citiesScrollView.frame.width, y: 0)
+                                        self.citiesScrollView.setContentOffset(newCityPoint, animated: false)
+                                        self.commitChanges()
+                                    }
                                 }
                             }
                         }

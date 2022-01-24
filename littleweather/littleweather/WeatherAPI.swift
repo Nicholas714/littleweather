@@ -125,8 +125,8 @@ class WeatherAPI {
     let iconGETPrefix = "https://openweathermap.org/img/wn/"
     
     func getWeather(for city: String, completion: @escaping (WeatherResponse?, Error?) -> ()) {
-        let requestLink = "\(weatherGETPrefix)\(city)&appid=\(appId)"
-
+        let requestLink = "\(weatherGETPrefix)\(city)&appid=\(appId)".lowercased()
+        
         AF.request(requestLink).responseString { weatherResponseData in
             if let responseData = weatherResponseData.data {
                 do {
@@ -134,6 +134,7 @@ class WeatherAPI {
                     let weatherResponse = try decoder.decode(WeatherResponse.self, from: responseData)
                     completion(weatherResponse, nil)
                 } catch let error {
+                    print(error)
                     let decoder = JSONDecoder()
                     let weatherErrorResponse = try? decoder.decode(WeatherErrorResponse.self, from: responseData)
                     if let weatherErrorResponse = weatherErrorResponse {
@@ -142,6 +143,8 @@ class WeatherAPI {
                         completion(nil, error)
                     }
                 }
+            } else {
+                completion(nil, weatherResponseData.error)
             }
         }
     }
