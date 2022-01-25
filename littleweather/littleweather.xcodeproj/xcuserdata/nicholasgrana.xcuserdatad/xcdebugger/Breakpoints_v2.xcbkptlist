@@ -7,16 +7,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5F10CC30-68B6-417E-8EA2-5C5CD1628ADC"
+            uuid = "ACCFC81C-207C-496B-A912-50D72AAAF31A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "littleweather/WeatherScrollViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "setupCitiesScrollView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A1D3DFA-7B76-4ABF-B378-B57E9A17A837"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "littleweather/controllers/WeatherScrollViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "setupCitiesScrollView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ABF4FDAD-8C06-4CA3-BF1A-DD210AEE2B19"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "littleweather/controllers/WeatherScrollViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "setupCitiesScrollView()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ABF4FDAD-8C06-4CA3-BF1A-DD210AEE2B19 - 738e04894365bd7c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "littleweather.WeatherScrollViewController.setupCitiesScrollView() -&gt; ()"
+                  moduleName = "littleweather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicholasgrana/Developer/cs4261/littleweather/littleweather/controllers/WeatherScrollViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "3740">
+               </Location>
+               <Location
+                  uuid = "ABF4FDAD-8C06-4CA3-BF1A-DD210AEE2B19 - 738e04894365bd7c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "littleweather.WeatherScrollViewController.setupCitiesScrollView() -&gt; ()"
+                  moduleName = "littleweather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicholasgrana/Developer/cs4261/littleweather/littleweather/controllers/WeatherScrollViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "3792">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33CF1C5E-3B8B-48E7-8F91-70115F5C2466"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "littleweather/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "setWeatherScrollViewController(scene:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

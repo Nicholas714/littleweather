@@ -6,17 +6,69 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var windowScene: UIWindowScene?
+    
+    var userID: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "userID")
+        }
+        get {
+            UserDefaults.standard.string(forKey: "userID")
+        }
+    }
+    
+    func setWeatherScrollViewController(scene: UIWindowScene) {
+        let window = UIWindow(windowScene: scene)
+        if let weatherViewController = Bundle.main.loadNibNamed("WeatherScrollViewController", owner: nil, options: nil)?.first as? WeatherScrollViewController {
+            weatherViewController.databaseID = userID?.replacingOccurrences(of: ".", with: "")
+            weatherViewController.delegate = self
+            window.rootViewController = weatherViewController
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+    }
+    
+    func setSignInViewController(scene: UIWindowScene) {
+        let window = UIWindow(windowScene: scene)
+        if let signInController = Bundle.main.loadNibNamed("WeatherSignInViewController", owner: nil, options: nil)?.first as? WeatherSignInViewController {
+            signInController.signInDelegate = self
+            window.rootViewController = signInController
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        self.windowScene = windowScene
+        
+        if let userID = userID {
+            let provider = ASAuthorizationAppleIDProvider()
+            provider.getCredentialState(forUserID: userID) { state, error in
+                if let error = error {
+                    NSLog("Couldn't get credential state. \(error.localizedDescription)")
+                } else {
+                    DispatchQueue.main.async {
+                        if (state == .authorized) {
+                            self.setWeatherScrollViewController(scene: windowScene)
+                        } else {
+                            self.setSignInViewController(scene: windowScene)
+                        }
+                    }
+                }
+            }
+        } else {
+            setSignInViewController(scene: windowScene)
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -50,3 +102,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate: WeatherAuthenticationDelegate {
+    
+    func signIn(userID: String) {
+        self.userID = userID
+        
+        if let windowScene = windowScene {
+            setWeatherScrollViewController(scene: windowScene)
+        }
+    }
+    
+    func signOut() {
+        self.userID = nil
+        
+        if let scene = windowScene {
+            self.setSignInViewController(scene: scene)
+        }
+    }
+    
+}

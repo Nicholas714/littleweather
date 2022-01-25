@@ -18,11 +18,20 @@ class WeatherScrollViewController: UIViewController {
     
     let lm = CLLocationManager()
     
+    var databaseID: String? {
+        didSet {
+            self.setupCitiesScrollView()
+        }
+    }
+    
     var cityViews = [CityWeatherView]()
     
     @IBOutlet weak var citiesPageControl: UIPageControl!
     @IBOutlet weak var deleteCityButton: UIButton!
     @IBOutlet weak var addCityButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    var delegate: WeatherAuthenticationDelegate?
     var citiesScrollView: UIScrollView!
     
     lazy var weather: WeatherAPI = {
@@ -35,7 +44,10 @@ class WeatherScrollViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
     
+    func setupCitiesScrollView() {
         self.lm.delegate = self
         self.lm.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         self.lm.requestWhenInUseAuthorization()
@@ -46,21 +58,26 @@ class WeatherScrollViewController: UIViewController {
         citiesScrollView.isPagingEnabled = true
         citiesScrollView.delegate = self
         citiesScrollView.showsHorizontalScrollIndicator = false
+        citiesScrollView.backgroundColor = .warm0
         view.addSubview(citiesScrollView)
         
         view.backgroundColor = .white
         view.bringSubviewToFront(citiesPageControl)
         view.bringSubviewToFront(deleteCityButton)
         view.bringSubviewToFront(addCityButton)
+        view.bringSubviewToFront(logoutButton)
 
         deleteCityButton.isEnabled = cityViews.count > 1
         
-        Database.database().reference().child("nick").observeSingleEvent(of: .value, with: { snapshot in
-            if let id = snapshot.value as? Array<String?> {
-                let cities = id.filter({ $0 != nil }) as! Array<String>
-                self.setup(with: cities)
-            }
-        })
+        if let databaseID = databaseID {
+            Database.database().reference().child(databaseID).observeSingleEvent(of: .value, with: { snapshot in
+                if let id = snapshot.value as? Array<String?> {
+                    let cities = id.filter({ $0 != nil }) as! Array<String>
+                    print("cities: \(cities)")
+                    self.setup(with: cities)
+                }
+            })
+        }
     }
     
     func create(city: String, at index: Int, withCompletion completion: @escaping (CityWeatherView?) -> ()) {
@@ -86,9 +103,11 @@ class WeatherScrollViewController: UIViewController {
     }
     
     func commitChanges() {
-        let cityNames = cityViews.map { $0.cityName }
-        Database.database().reference().child("nick").setValue(cityNames)
-        deleteCityButton.isEnabled = cityViews.count > 1
+        if let databaseID = databaseID {
+            let cityNames = cityViews.map { $0.cityName }
+            Database.database().reference().child(databaseID).setValue(cityNames)
+            deleteCityButton.isEnabled = cityViews.count > 1
+        }
     }
     
     func updateScrollViewCitiesSize() {
@@ -133,6 +152,10 @@ class WeatherScrollViewController: UIViewController {
     
     @IBAction func addCity(_ sender: UIButton) {
         enterCityAlert()
+    }
+    
+    @IBAction func logout(_ sender: UIButton) {
+        delegate?.signOut()
     }
     
     func insert(city: String, at index: Int) {
@@ -250,9 +273,10 @@ extension WeatherScrollViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         citiesPageControl.currentPage = cityIndex
-        if cityIndex < citiesScrollView.subviews.count {
+        if cityIndex < cityViews.count {
             let currentBackgroundColor = cityViews[cityIndex].backgroundColor
             view.backgroundColor = currentBackgroundColor
+            scrollView.backgroundColor = currentBackgroundColor
         }
     }
     

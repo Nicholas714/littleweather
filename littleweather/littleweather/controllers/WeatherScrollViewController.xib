@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="b6X-dM-JZ0" customClass="WeatherScrollViewController" customModule="littleweather" customModuleProvider="target">
+            <view key="view" contentMode="scaleToFill" id="pKw-79-kFm">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iHl-Fd-UbQ">
+                        <rect key="frame" x="186" y="870" width="42.5" height="0.0"/>
+                    </pageControl>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcX-e8-6PW">
+                        <rect key="frame" x="300" y="801" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="XKD-Rs-emf"/>
+                            <constraint firstAttribute="height" constant="45" id="gIC-hH-akg"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="gray" image="trash" catalog="system" cornerStyle="capsule">
+                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
+                            <color key="baseBackgroundColor" white="0.0" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="deleteCity:" destination="b6X-dM-JZ0" eventType="touchUpInside" id="lSj-Cs-NhH"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4e-pl-Cit">
+                        <rect key="frame" x="353" y="801" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="GTh-B9-zPt"/>
+                            <constraint firstAttribute="height" constant="45" id="ahd-vQ-QUY"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="gray" image="plus" catalog="system" cornerStyle="capsule">
+                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
+                            <color key="baseBackgroundColor" white="0.0" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="addCity:" destination="b6X-dM-JZ0" eventType="touchUpInside" id="ep0-Zk-MpS"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hrh-32-Ye0">
+                        <rect key="frame" x="16" y="801" width="96.5" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="lWT-98-aGU"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="gray" image="arrow.left" catalog="system" title="Log Out" imagePadding="5" cornerStyle="capsule">
+                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
+                            <color key="baseBackgroundColor" white="0.0" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="logout:" destination="b6X-dM-JZ0" eventType="touchUpInside" id="r6d-Z1-3vM"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <viewLayoutGuide key="safeArea" id="Bua-3E-JlX"/>
+                <color key="backgroundColor" systemColor="systemTealColor"/>
+                <constraints>
+                    <constraint firstItem="Hrh-32-Ye0" firstAttribute="leading" secondItem="Bua-3E-JlX" secondAttribute="leading" constant="16" id="2tH-Vn-atH"/>
+                    <constraint firstItem="Bua-3E-JlX" firstAttribute="trailing" secondItem="U4e-pl-Cit" secondAttribute="trailing" constant="16" id="I7m-Ib-tAA"/>
+                    <constraint firstItem="U4e-pl-Cit" firstAttribute="leading" secondItem="OcX-e8-6PW" secondAttribute="trailing" constant="8" symbolic="YES" id="JkH-1H-y22"/>
+                    <constraint firstItem="Bua-3E-JlX" firstAttribute="bottom" secondItem="Hrh-32-Ye0" secondAttribute="bottom" constant="16" id="Mht-Oe-RQ4"/>
+                    <constraint firstItem="iHl-Fd-UbQ" firstAttribute="centerX" secondItem="pKw-79-kFm" secondAttribute="centerX" id="Vsr-OC-cEe"/>
+                    <constraint firstItem="OcX-e8-6PW" firstAttribute="bottom" secondItem="Bua-3E-JlX" secondAttribute="bottom" constant="-16" id="cxD-va-NN2"/>
+                    <constraint firstItem="iHl-Fd-UbQ" firstAttribute="bottom" secondItem="Bua-3E-JlX" secondAttribute="bottom" constant="8" id="nz9-Jf-lyp"/>
+                    <constraint firstItem="U4e-pl-Cit" firstAttribute="bottom" secondItem="Bua-3E-JlX" secondAttribute="bottom" constant="-16" id="wvl-VT-YGw"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="addCityButton" destination="U4e-pl-Cit" id="XuZ-eE-L3o"/>
+                <outlet property="citiesPageControl" destination="iHl-Fd-UbQ" id="NYc-jn-Pgu"/>
+                <outlet property="deleteCityButton" destination="OcX-e8-6PW" id="9oT-FK-KgU"/>
+                <outlet property="logoutButton" destination="Hrh-32-Ye0" id="3ta-RX-ejt"/>
+            </connections>
+            <point key="canvasLocation" x="18.840579710144929" y="51.5625"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="arrow.left" catalog="system" width="128" height="98"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
