@@ -50,6 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.windowScene = windowScene
         
+#if targetEnvironment(simulator)
+        userID = "simulator"
+        self.setWeatherScrollViewController(scene: windowScene)
+#else
         if let userID = userID {
             let provider = ASAuthorizationAppleIDProvider()
             provider.getCredentialState(forUserID: userID) { state, error in
@@ -68,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             setSignInViewController(scene: windowScene)
         }
-        
+#endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
