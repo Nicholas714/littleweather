@@ -49,6 +49,13 @@
                         <action selector="renameCity:" destination="D4l-BA-JqP" eventType="touchUpInside" id="9Mg-rR-fZD"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High: --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13A-68-gEI">
+                    <rect key="frame" x="38" y="332" width="376" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="VgY-cm-1Qx"/>
             <color key="backgroundColor" systemColor="systemTealColor"/>
@@ -69,11 +76,12 @@
             </constraints>
             <connections>
                 <outlet property="cityButton" destination="nBG-5r-T6l" id="nb9-JO-aBC"/>
+                <outlet property="highTempLabel" destination="13A-68-gEI" id="lq2-VU-2Is"/>
                 <outlet property="mainImage" destination="yF2-WK-YuY" id="xwi-X1-E5r"/>
                 <outlet property="temperatureLabel" destination="ez9-p8-CZu" id="VCu-bN-DWe"/>
                 <outlet property="weatherTitleLabel" destination="ht8-9T-GJH" id="AGg-7W-Gxl"/>
             </connections>
-            <point key="canvasLocation" x="-312" y="-18"/>
+            <point key="canvasLocation" x="-313.04347826086956" y="-18.080357142857142"/>
         </view>
     </objects>
     <resources>

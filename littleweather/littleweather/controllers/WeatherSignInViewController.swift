@@ -6,6 +6,7 @@
 //
 
 import UIKit
+#if !DEBUG
 import AuthenticationServices
 
 protocol WeatherAuthenticationDelegate {
@@ -52,7 +53,7 @@ class WeatherSignInButton: UIView {
 
 class WeatherSignInViewController: UIViewController {
     
-    @IBOutlet var signInButton: WeatherSignInButton!
+    @IBOutlet weak var signInButton: WeatherSignInButton!
     
     var signInDelegate: WeatherAuthenticationDelegate?
     
@@ -86,3 +87,4 @@ extension WeatherSignInViewController: ASAuthorizationControllerDelegate {
     }
     
 }
+#endif

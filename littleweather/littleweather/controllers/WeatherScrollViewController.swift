@@ -31,7 +31,9 @@ class WeatherScrollViewController: UIViewController {
     @IBOutlet weak var addCityButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
+    #if !DEBUG
     var delegate: WeatherAuthenticationDelegate?
+    #endif
     var citiesScrollView: UIScrollView!
     
     lazy var weather: WeatherAPI = {
@@ -155,7 +157,9 @@ class WeatherScrollViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: UIButton) {
+        #if !DEBUG
         delegate?.signOut()
+        #endif
     }
     
     func insert(city: String, at index: Int) {

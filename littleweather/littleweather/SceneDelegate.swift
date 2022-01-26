@@ -6,7 +6,9 @@
 //
 
 import UIKit
+#if !DEBUG
 import AuthenticationServices
+#endif
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -21,18 +23,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.string(forKey: "userID")
         }
     }
-    
+
     func setWeatherScrollViewController(scene: UIWindowScene) {
         let window = UIWindow(windowScene: scene)
         if let weatherViewController = Bundle.main.loadNibNamed("WeatherScrollViewController", owner: nil, options: nil)?.first as? WeatherScrollViewController {
             weatherViewController.databaseID = userID?.replacingOccurrences(of: ".", with: "")
+            #if !DEBUG
             weatherViewController.delegate = self
+            #endif
             window.rootViewController = weatherViewController
             self.window = window
             window.makeKeyAndVisible()
         }
     }
     
+#if !DEBUG
     func setSignInViewController(scene: UIWindowScene) {
         let window = UIWindow(windowScene: scene)
         if let signInController = Bundle.main.loadNibNamed("WeatherSignInViewController", owner: nil, options: nil)?.first as? WeatherSignInViewController {
@@ -42,6 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
     }
+#endif
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -50,7 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.windowScene = windowScene
         
-#if targetEnvironment(simulator)
+#if targetEnvironment(simulator) || DEBUG
         userID = "simulator"
         self.setWeatherScrollViewController(scene: windowScene)
 #else
@@ -106,6 +112,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+#if !DEBUG
 extension SceneDelegate: WeatherAuthenticationDelegate {
     
     func signIn(userID: String) {
@@ -125,3 +132,4 @@ extension SceneDelegate: WeatherAuthenticationDelegate {
     }
     
 }
+#endif

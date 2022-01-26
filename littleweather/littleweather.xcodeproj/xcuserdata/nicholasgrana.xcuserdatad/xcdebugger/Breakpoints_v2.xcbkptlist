@@ -30,8 +30,8 @@
             filePath = "littleweather/controllers/WeatherScrollViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "setupCitiesScrollView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "littleweather/controllers/WeatherScrollViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "setupCitiesScrollView()"
             landmarkType = "7">
             <Locations>
@@ -94,8 +94,8 @@
             filePath = "littleweather/SceneDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "setWeatherScrollViewController(scene:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "littleweather/controllers/WeatherScrollViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "insert(city:at:)"
             landmarkType = "7">
             <Locations>
@@ -128,7 +128,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "174"
                   endingLineNumber = "174"
-                  offsetFromSymbolStart = "112">
+                  offsetFromSymbolStart = "150">
                </Location>
                <Location
                   uuid = "9FF52A86-30AC-4F34-8224-D8E4E7B865C6 - 34b049f31544cefd"
@@ -143,7 +143,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "174"
                   endingLineNumber = "174"
-                  offsetFromSymbolStart = "136">
+                  offsetFromSymbolStart = "185">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "littleweather/controllers/WeatherScrollViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "insert(city:at:)"
             landmarkType = "7">
          </BreakpointContent>
