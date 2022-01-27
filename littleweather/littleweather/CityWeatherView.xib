@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -31,7 +31,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rain" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht8-9T-GJH">
-                    <rect key="frame" x="8" y="279" width="398" height="31.5"/>
+                    <rect key="frame" x="8" y="279" width="398" height="31.666666666666686"/>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -49,9 +49,26 @@
                         <action selector="renameCity:" destination="D4l-BA-JqP" eventType="touchUpInside" id="9Mg-rR-fZD"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High: --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13A-68-gEI">
-                    <rect key="frame" x="38" y="332" width="376" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="High:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="otH-B2-7zU">
+                    <rect key="frame" x="179" y="313" width="56" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Low: --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PyS-tx-Vx0">
+                    <rect key="frame" x="179" y="342" width="55" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunset: --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcH-nT-T4G">
+                    <rect key="frame" x="168.33333333333334" y="407.66666666666669" width="77.333333333333343" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunrise: --" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn5-Ef-mNL">
+                    <rect key="frame" x="166.33333333333334" y="377.66666666666669" width="81.333333333333343" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -63,26 +80,45 @@
                 <constraint firstItem="ht8-9T-GJH" firstAttribute="top" secondItem="ez9-p8-CZu" secondAttribute="bottom" constant="8" symbolic="YES" id="1oi-u4-rGZ"/>
                 <constraint firstItem="ht8-9T-GJH" firstAttribute="top" secondItem="ez9-p8-CZu" secondAttribute="bottom" constant="8" symbolic="YES" id="4vH-Za-m7Z"/>
                 <constraint firstItem="ez9-p8-CZu" firstAttribute="leading" secondItem="VgY-cm-1Qx" secondAttribute="leading" constant="8" id="Bhp-DR-BG0"/>
+                <constraint firstItem="otH-B2-7zU" firstAttribute="top" secondItem="ht8-9T-GJH" secondAttribute="bottom" constant="8" symbolic="YES" id="FaB-dv-ibp"/>
+                <constraint firstItem="Xn5-Ef-mNL" firstAttribute="centerX" secondItem="PyS-tx-Vx0" secondAttribute="centerX" id="Hjb-cP-Xmj"/>
                 <constraint firstItem="VgY-cm-1Qx" firstAttribute="trailing" secondItem="ez9-p8-CZu" secondAttribute="trailing" constant="8" id="Kbg-VG-rOt"/>
+                <constraint firstItem="otH-B2-7zU" firstAttribute="centerX" secondItem="ht8-9T-GJH" secondAttribute="centerX" id="RDk-lY-d8e"/>
                 <constraint firstItem="VgY-cm-1Qx" firstAttribute="trailing" secondItem="ht8-9T-GJH" secondAttribute="trailing" constant="8" id="UAS-HA-mrt"/>
+                <constraint firstItem="Xn5-Ef-mNL" firstAttribute="centerY" secondItem="PyS-tx-Vx0" secondAttribute="centerY" constant="30" id="Vag-IO-xHU"/>
                 <constraint firstItem="ez9-p8-CZu" firstAttribute="top" secondItem="yF2-WK-YuY" secondAttribute="bottom" constant="8" symbolic="YES" id="Z8o-LJ-Qao"/>
+                <constraint firstItem="PyS-tx-Vx0" firstAttribute="centerX" secondItem="otH-B2-7zU" secondAttribute="centerX" id="c86-tE-Rdz"/>
                 <constraint firstItem="nBG-5r-T6l" firstAttribute="top" secondItem="VgY-cm-1Qx" secondAttribute="top" constant="20" id="dIz-1I-HDs"/>
+                <constraint firstItem="PyS-tx-Vx0" firstAttribute="centerY" secondItem="otH-B2-7zU" secondAttribute="centerY" constant="29" id="dyR-Xw-fW4"/>
                 <constraint firstItem="nBG-5r-T6l" firstAttribute="centerX" secondItem="D4l-BA-JqP" secondAttribute="centerX" id="iVc-22-v3F"/>
                 <constraint firstItem="yF2-WK-YuY" firstAttribute="centerX" secondItem="D4l-BA-JqP" secondAttribute="centerX" id="iyd-Fo-9en"/>
                 <constraint firstItem="ez9-p8-CZu" firstAttribute="top" secondItem="yF2-WK-YuY" secondAttribute="bottom" constant="8" symbolic="YES" id="j3c-lb-bXJ"/>
                 <constraint firstItem="ht8-9T-GJH" firstAttribute="leading" secondItem="VgY-cm-1Qx" secondAttribute="leading" constant="8" id="krw-Ky-304"/>
                 <constraint firstItem="nBG-5r-T6l" firstAttribute="top" secondItem="VgY-cm-1Qx" secondAttribute="top" constant="20" id="mdH-Zs-Kfy"/>
+                <constraint firstItem="BcH-nT-T4G" firstAttribute="centerY" secondItem="Xn5-Ef-mNL" secondAttribute="centerY" constant="30" id="oRQ-IS-etY"/>
                 <constraint firstItem="yF2-WK-YuY" firstAttribute="top" secondItem="nBG-5r-T6l" secondAttribute="bottom" constant="8" symbolic="YES" id="uPo-jb-KLE"/>
+                <constraint firstItem="BcH-nT-T4G" firstAttribute="centerX" secondItem="Xn5-Ef-mNL" secondAttribute="centerX" id="zdb-08-x1E"/>
             </constraints>
             <connections>
                 <outlet property="cityButton" destination="nBG-5r-T6l" id="nb9-JO-aBC"/>
-                <outlet property="highTempLabel" destination="13A-68-gEI" id="lq2-VU-2Is"/>
+                <outlet property="highTempLabel" destination="otH-B2-7zU" id="Y3G-cW-eRe"/>
+                <outlet property="lowTempLabel" destination="PyS-tx-Vx0" id="Zb5-uu-UIb"/>
                 <outlet property="mainImage" destination="yF2-WK-YuY" id="xwi-X1-E5r"/>
+                <outlet property="sunriseLabel" destination="Xn5-Ef-mNL" id="vZh-0l-NXo"/>
+                <outlet property="sunsetLabel" destination="BcH-nT-T4G" id="jf6-aT-ATX"/>
                 <outlet property="temperatureLabel" destination="ez9-p8-CZu" id="VCu-bN-DWe"/>
                 <outlet property="weatherTitleLabel" destination="ht8-9T-GJH" id="AGg-7W-Gxl"/>
             </connections>
             <point key="canvasLocation" x="-313.04347826086956" y="-18.080357142857142"/>
         </view>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EWo-gu-eHY">
+            <rect key="frame" x="0.0" y="0.0" width="71" height="27"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="-721.01449275362324" y="-122.20982142857142"/>
+        </label>
     </objects>
     <resources>
         <image name="pencil" catalog="system" width="128" height="113"/>
