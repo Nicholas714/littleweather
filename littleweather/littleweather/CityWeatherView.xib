@@ -108,8 +108,8 @@
                 <outlet property="cityButton" destination="nBG-5r-T6l" id="nb9-JO-aBC"/>
                 <outlet property="highLowTemp" destination="otH-B2-7zU" id="Y3G-cW-eRe"/>
                 <outlet property="mainImage" destination="yF2-WK-YuY" id="xwi-X1-E5r"/>
-                <outlet property="sunriseLabel" destination="Xn5-Ef-mNL" id="vZh-0l-NXo"/>
-                <outlet property="sunsetLabel" destination="BcH-nT-T4G" id="jf6-aT-ATX"/>
+                <outlet property="sunriseLabel" destination="BcH-nT-T4G" id="S4a-ch-1vi"/>
+                <outlet property="sunsetLabel" destination="Xn5-Ef-mNL" id="p2U-hW-e2k"/>
                 <outlet property="temperatureLabel" destination="ez9-p8-CZu" id="VCu-bN-DWe"/>
                 <outlet property="weatherTitleLabel" destination="ht8-9T-GJH" id="AGg-7W-Gxl"/>
             </connections>
