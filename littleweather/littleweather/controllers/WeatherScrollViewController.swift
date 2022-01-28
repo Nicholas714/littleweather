@@ -177,7 +177,11 @@ class WeatherScrollViewController: UIViewController {
             self.create(city: city, at: index) { cityView in
                 if let cityView = cityView {
                     self.citiesScrollView.addSubview(cityView)
-                    self.cityViews.insert(cityView, at: index)
+                    if self.cityViews.isEmpty {
+                        self.cityViews.append(cityView)
+                    } else {
+                        self.cityViews.insert(cityView, at: index)
+                    }
                     self.updateScrollViewCitiesSize()
                     
                     let newCityPoint = CGPoint(x: CGFloat(index) * self.citiesScrollView.frame.width, y: 0)
