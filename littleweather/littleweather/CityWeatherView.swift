@@ -7,14 +7,18 @@
 
 import UIKit
 
+struct TemperatureRange {
+    let low: Measurement<UnitTemperature>
+    let high: Measurement<UnitTemperature>
+}
+
 class CityWeatherView: UIView {
     
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityButton: UIButton!
     @IBOutlet weak var weatherTitleLabel: UILabel!
-    @IBOutlet weak var highTempLabel: UILabel!
-    @IBOutlet weak var lowTempLabel: UILabel!
+    @IBOutlet weak var highLowTemp: UILabel!
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     
@@ -50,22 +54,12 @@ class CityWeatherView: UIView {
         }
     }
     
-    var highTemperature: Measurement<UnitTemperature>? {
+    var temperatureRange: TemperatureRange? {
         didSet {
-            if let highTemperature = highTemperature {
-                highTempLabel.text = "High: \( wholeNumberMeasurementFormatter.string(from: highTemperature))"
+            if let temperatureRange = temperatureRange {
+                highLowTemp.text = "H: \(wholeNumberMeasurementFormatter.string(from: temperatureRange.high)) L: \(wholeNumberMeasurementFormatter.string(from: temperatureRange.low))"
             } else {
-                highTempLabel.text = "High: --"
-            }
-        }
-    }
-    
-    var lowTemperature: Measurement<UnitTemperature>? {
-        didSet {
-            if let lowTemperature = lowTemperature {
-                lowTempLabel.text = "Low: \( wholeNumberMeasurementFormatter.string(from: lowTemperature))"
-            } else {
-                lowTempLabel.text = "Low: --"
+                highLowTemp.text = "H: -- L: --"
             }
         }
     }
@@ -73,9 +67,9 @@ class CityWeatherView: UIView {
     var sunrise: Date? {
         didSet {
             if let sunrise = sunrise {
-                sunriseLabel.text = "Sunrise: \( unixTimestampDateFormatter.string(from: sunrise))"
+                sunriseLabel.text = "\(unixTimestampDateFormatter.string(from: sunrise))"
             } else {
-                sunriseLabel.text = "Sunrise: --"
+                sunriseLabel.text = "--"
             }
         }
     }
@@ -83,9 +77,9 @@ class CityWeatherView: UIView {
     var sunset: Date? {
         didSet {
             if let sunset = sunset {
-                sunsetLabel.text = "Sunset: \( unixTimestampDateFormatter.string(from: sunset))"
+                sunsetLabel.text = "\(unixTimestampDateFormatter.string(from: sunset))"
             } else {
-                sunsetLabel.text = "Sunset: --"
+                sunsetLabel.text = "--"
             }
         }
     }
@@ -106,8 +100,7 @@ class CityWeatherView: UIView {
         didSet {
             if let weather = weather {
                 temperature = Measurement(value: weather.main.temp, unit: .kelvin)
-                highTemperature = Measurement(value: weather.main.temp_max, unit: .kelvin)
-                lowTemperature = Measurement(value: weather.main.temp_min, unit: .kelvin)
+                temperatureRange = TemperatureRange(low: Measurement(value: weather.main.temp_min, unit: .kelvin), high: Measurement(value: weather.main.temp_max, unit: .kelvin))
                 sunrise = Date(timeIntervalSince1970: TimeInterval(weather.sys.sunrise))
                 sunset = Date(timeIntervalSince1970: TimeInterval(weather.sys.sunset))
                 cityName = weather.name
